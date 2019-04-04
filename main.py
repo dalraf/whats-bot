@@ -3,8 +3,9 @@ from bot import wppbot
 
 bot = wppbot('robozin')
 bot.treina('treino')
-bot.inicia('Grupo dos Amigos')
-bot.saudacao(['Bot: Oi, sou o robozin!','Bot: Use :: no início para falar comigo'])
+#bot.inicia('Capitalismo Opressor News')
+bot.inicia('Fábio Assunção THE BOSS')
+bot.saudacao(['bot: Oi, sou um bot','bot: Bora conversar ?'])
 ultimo_texto = ''
 
 
@@ -13,10 +14,10 @@ while True:
 
     texto = bot.escuta()
 
-    if texto != ultimo_texto and re.match(r'^::', texto):
+    if texto != ultimo_texto and not re.match(r'^bot:', texto):
 
         ultimo_texto = texto
-        texto = texto.replace('::', '')
+        texto = texto.replace('', '')
         texto = texto.lower()
 
         if (texto == 'aprender' or texto == ' aprender' or texto == 'ensinar' or texto == ' ensinar'):

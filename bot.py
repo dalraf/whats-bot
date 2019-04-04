@@ -3,7 +3,7 @@ import time
 import re
 import requests
 import json
-from chatterbot.trainers import ListTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot import ChatBot
 from selenium import webdriver
 
@@ -15,10 +15,18 @@ class wppbot:
 
     def __init__(self, nome_bot):
         print(self.dir_path)
-        self.bot = ChatBot(nome_bot)
-        self.bot.set_trainer(ListTrainer)
+        self.bot = ChatBot(nome_bot,logic_adapters=[
+        {
+            'import_path': 'chatterbot.logic.BestMatch',
+            'default_response': 'Xii, Cara, não entendi',
+            'maximum_similarity_threshold': 0.50
+        }]
+        )
 
-        self.chrome = self.dir_path+'\chromedriver.exe'
+
+        self.bot.set_trainer(ChatterBotCorpusTrainer)
+
+        self.chrome = self.dir_path+'/chromedriver'
 
         self.options = webdriver.ChromeOptions()
         self.options.add_argument(r"user-data-dir="+self.dir_path+"\profile\wpp")
@@ -70,7 +78,7 @@ class wppbot:
         while self.x == True:
             texto = self.escuta()
 
-            if texto != ultimo_texto and re.match(r'^::', texto):
+            if texto != ultimo_texto and not re.match(r'^bot:', texto):
                 if texto.find('?') != -1:
                     ultimo_texto = texto
                     texto = texto.replace('::', '')
@@ -124,6 +132,5 @@ class wppbot:
         self.botao_enviar.click()
 
     def treina(self,nome_pasta):
-        for treino in os.listdir(nome_pasta):
-            conversas = open(nome_pasta+'/'+treino, 'r').readlines()
-            self.bot.train(conversas)
+     return
+     #   self.bot.train('chatterbot.corpus.portuguese')
