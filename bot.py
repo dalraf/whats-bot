@@ -16,11 +16,12 @@ class wppbot:
     def __init__(self, nome_bot):
         print(self.dir_path)
         self.bot = ChatBot(nome_bot,logic_adapters=[
-        {
-            'import_path': 'chatterbot.logic.BestMatch',
-            'default_response': 'Xii, Cara, não entendi',
-            'maximum_similarity_threshold': 0.50
-        }]
+            {
+              'import_path': 'chatterbot.logic.BestMatch',
+              'default_response': 'Xii, Cara, não entendi',
+              'maximum_similarity_threshold': 0.50
+            }
+          ]
         )
 
 
