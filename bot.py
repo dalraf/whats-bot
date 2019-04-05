@@ -75,7 +75,7 @@ class wppbot:
         response = self.bot.get_response(texto)
         if self.ultima_resposta != "":
             novo = []
-            novo.append(response)
+            novo.append(texto)
             novo.append(self.ultima_resposta)
             self.bot.train(novo)       
         self.ultima_resposta = response
