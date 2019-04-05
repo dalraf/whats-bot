@@ -69,60 +69,14 @@ class wppbot:
         texto = post[ultimo].find_element_by_css_selector('span.selectable-text').text
         return texto
 
-    def aprender(self,ultimo_texto,frase_inicial,frase_final,frase_erro):
-        self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')
-        self.caixa_de_mensagem.send_keys(frase_inicial)
-        time.sleep(1)
-        self.botao_enviar = self.driver.find_element_by_class_name('_35EW6')
-        self.botao_enviar.click()
-        self.x = True
-        while self.x == True:
-            texto = self.escuta()
-
-            if texto != ultimo_texto and not re.match(r'^bot:', texto):
-                if texto.find('?') != -1:
-                    ultimo_texto = texto
-                    texto = texto.replace('::', '')
-                    texto = texto.lower()
-                    texto = texto.replace('?', '?*')
-                    texto = texto.split('*')
-                    novo = []
-                    for elemento in texto:
-                        elemento = elemento.strip()
-                        novo.append(elemento)
-
-                    self.bot.train(novo)
-                    self.caixa_de_mensagem.send_keys(frase_final)
-                    time.sleep(1)
-                    self.botao_enviar = self.driver.find_element_by_class_name('_35EW6')
-                    self.botao_enviar.click()
-                    self.x = False
-                    return ultimo_texto
-                else:
-                    self.caixa_de_mensagem.send_keys(frase_erro)
-                    time.sleep(1)
-                    self.botao_enviar = self.driver.find_element_by_class_name('_35EW6')
-                    self.botao_enviar.click()
-                    self.x = False
-                    return ultimo_texto
-            else:
-                ultimo_texto = texto
-
-    def noticias(self):
-
-        req = requests.get('https://newsapi.org/v2/top-headlines?sources=globo&pageSize=5&apiKey=f6fdb7cb0f2a497d92dbe719a29b197f')
-        noticias = json.loads(req.text)
-
-        for news in noticias['articles']:
-            titulo = news['title']
-            link = news['url']
-            new = 'bot: ' + titulo + ' ' + link + '\n'
-
-            self.caixa_de_mensagem.send_keys(new)
-            time.sleep(1)
 
     def responde(self,texto):
         response = self.bot.get_response(texto)
+        novo = []
+        novo.append(response)
+        novo.append(texto)
+        self.bot.train(ultima_resposta)       
+        ultima_resposta = response
         # if float(response.confidence) > 0.5:
         response = str(response)
         response = 'bot: ' + response
@@ -134,4 +88,4 @@ class wppbot:
 
     def treina(self,nome_pasta):
      return
-     #   self.bot.train('chatterbot.corpus.portuguese')
+        self.bot.train('chatterbot.corpus.portuguese')
