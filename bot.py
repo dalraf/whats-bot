@@ -3,7 +3,7 @@ import time
 import re
 import requests
 import json
-from chatterbot.trainers import ChatterBotCorpusTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 from chatterbot import ChatBot
 from selenium import webdriver
 
@@ -25,7 +25,7 @@ class wppbot:
         )
 
 
-        self.bot.set_trainer(ChatterBotCorpusTrainer)
+        self.bot.set_trainer(ListTrainer)
 
         self.chrome = self.dir_path+'/chromedriver'
 
@@ -88,4 +88,6 @@ class wppbot:
         self.botao_enviar.click()
 
     def treina(self,nome_pasta):
+        self.bot.set_trainer(ChatterBotCorpusTrainer)
         self.bot.train('chatterbot.corpus.portuguese')
+        self.bot.set_trainer(ListTrainer)
