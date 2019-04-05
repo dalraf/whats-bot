@@ -74,8 +74,8 @@ class wppbot:
         response = self.bot.get_response(texto)
         novo = []
         novo.append(response)
-        novo.append(texto)
-        self.bot.train(ultima_resposta)       
+        novo.append(ultima_resposta)
+        self.bot.train(novo)       
         ultima_resposta = response
         # if float(response.confidence) > 0.5:
         response = str(response)
