@@ -67,7 +67,10 @@ class wppbot:
     def escuta(self):
         post = self.driver.find_elements_by_class_name('_3_7SH')
         ultimo = len(post) - 1
-        texto = post[ultimo].find_element_by_css_selector('span.selectable-text').text
+        try:
+            texto = post[ultimo].find_element_by_css_selector('span.selectable-text').text
+        except:
+            texto = "erro"
         return texto
 
 

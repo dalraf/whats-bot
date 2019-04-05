@@ -23,5 +23,7 @@ while True:
 
         if (texto == 'noticias' or texto == ' noticias' or texto == 'noticia' or texto == ' noticia' or texto == 'notícias' or texto == ' notícias' or texto == 'notícia' or texto == ' notícia'):
             bot.noticias()
+        if texto == "erro":
+            break
         else:
             bot.responde(texto)
