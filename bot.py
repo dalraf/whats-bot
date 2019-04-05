@@ -9,8 +9,8 @@ from selenium import webdriver
 
 
 
-class wppbot:
 
+class wppbot:
     dir_path = os.getcwd()
 
     def __init__(self, nome_bot):
@@ -32,6 +32,7 @@ class wppbot:
         self.options = webdriver.ChromeOptions()
         self.options.add_argument(r"user-data-dir="+self.dir_path+"\profile\wpp")
         self.driver = webdriver.Chrome(self.chrome, chrome_options=self.options)
+        self.ultima_resposta = ''
 
     def inicia(self,nome_contato):
 
@@ -72,12 +73,12 @@ class wppbot:
 
     def responde(self,texto):
         response = self.bot.get_response(texto)
-        novo = []
-        novo.append(response)
-        novo.append(ultima_resposta)
-        self.bot.train(novo)       
-        ultima_resposta = response
-        # if float(response.confidence) > 0.5:
+        if self.ultima_resposta != "":
+            novo = []
+            novo.append(response)
+            novo.append(self.ultima_resposta)
+            self.bot.train(novo)       
+        self.ultima_resposta = response
         response = str(response)
         response = 'bot: ' + response
         self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')
@@ -87,5 +88,4 @@ class wppbot:
         self.botao_enviar.click()
 
     def treina(self,nome_pasta):
-     return
         self.bot.train('chatterbot.corpus.portuguese')

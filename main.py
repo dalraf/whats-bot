@@ -7,7 +7,7 @@ bot = wppbot('robozin')
 bot.inicia('Fábio Assunção THE BOSS')
 bot.saudacao(['bot: Oi, sou um bot','bot: Bora conversar ?'])
 ultimo_texto = ''
-ultima_resposta = ''
+
 
 
 
