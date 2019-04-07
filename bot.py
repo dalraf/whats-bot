@@ -77,7 +77,7 @@ class wppbot:
             self.bot.train(novo)
         response = self.bot.get_response(texto)
         print(str(response) + " " + str(response.confidence))    
-        self.ultima_resposta = str(response)
+        self.ultima_resposta = texto
         if response.confidence > 0.65:
             response = str(response)
             response = 'bot: ' + response
