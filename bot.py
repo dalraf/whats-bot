@@ -80,14 +80,12 @@ class wppbot:
         self.ultima_resposta = str(response)
         if response.confidence > 0.65:
             response = str(response)
-        else:
-            response = "Xiii, Não entendi"
-        response = 'bot: ' + response
-        self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')
-        self.caixa_de_mensagem.send_keys(response)
-        time.sleep(1)
-        self.botao_enviar = self.driver.find_element_by_class_name('_35EW6')
-        self.botao_enviar.click()
+            response = 'bot: ' + response
+            self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')
+            self.caixa_de_mensagem.send_keys(response)
+            time.sleep(1)
+            self.botao_enviar = self.driver.find_element_by_class_name('_35EW6')
+            self.botao_enviar.click()
 
     def treina(self,nome_pasta):
         self.bot.set_trainer(ChatterBotCorpusTrainer)
