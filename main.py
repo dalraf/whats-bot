@@ -7,7 +7,7 @@ bot = wppbot('robozin')
 bot.inicia('Fábio Assunção THE BOSS')
 #bot.saudacao(['bot: Oi, sou um bot','bot: Bora conversar ?'])
 ultimo_texto = ''
-
+botname = 'Fábio Assunção:'
 
 
 
@@ -15,7 +15,7 @@ while True:
 
     texto = bot.escuta()
 
-    if texto != ultimo_texto and not re.match(r'^bot:', texto):
+    if texto != ultimo_texto and not re.match(r'^' + botname, texto):
 
         ultimo_texto = texto
         texto = texto.replace('', '')
@@ -24,4 +24,4 @@ while True:
         if texto == "erro":
             break
         else:
-            bot.responde(texto)
+            bot.responde(texto,botname)

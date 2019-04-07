@@ -8,8 +8,6 @@ from chatterbot import ChatBot
 from selenium import webdriver
 
 
-
-
 class wppbot:
     dir_path = os.getcwd()
 
@@ -66,7 +64,7 @@ class wppbot:
         return texto
 
 
-    def responde(self,texto):
+    def responde(self,texto,botname):
         print("Pergunta:" + " " + texto)
         print("Ultimo texto:" + " " + self.ultima_resposta)
         if self.ultima_resposta != "":
@@ -77,10 +75,10 @@ class wppbot:
             self.bot.train(novo)
         response = self.bot.get_response(texto)
         print("Resposta:" + " " + str(response) + " " + str(response.confidence))            
-        if response.confidence > 0.65:
+        if response.confidence > 0.50:
             self.ultima_resposta = str(response)
             response = str(response)
-            response = 'bot: ' + response
+            response = botname + response
             self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')
             self.caixa_de_mensagem.send_keys(response)
             time.sleep(1)
