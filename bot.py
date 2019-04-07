@@ -67,8 +67,8 @@ class wppbot:
 
 
     def responde(self,texto):
-        print(texto)
-
+        print("Pergunta" + " " + texto)
+        print("Ultimo texto" + self.ultima_resposta)
         if self.ultima_resposta != "":
             novo = []
             novo.append(self.ultima_resposta)
@@ -76,9 +76,9 @@ class wppbot:
             print(novo)
             self.bot.train(novo)
         response = self.bot.get_response(texto)
-        print(str(response) + " " + str(response.confidence))    
-        self.ultima_resposta = texto
+        print("Resposta:" + " " + str(response) + " " + str(response.confidence))            
         if response.confidence > 0.65:
+            self.ultima_resposta = str(response)
             response = str(response)
             response = 'bot: ' + response
             self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')
@@ -86,6 +86,8 @@ class wppbot:
             time.sleep(1)
             self.botao_enviar = self.driver.find_element_by_class_name('_35EW6')
             self.botao_enviar.click()
+        else:
+            self.ultima_resposta = texto
 
     def treina(self,nome_pasta):
         self.bot.set_trainer(ChatterBotCorpusTrainer)
