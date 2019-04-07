@@ -22,7 +22,7 @@ class wppbot:
         self.chrome = self.dir_path+'/chromedriver'
 
         self.options = webdriver.ChromeOptions()
-        self.options.add_argument(r"user-data-dir="+self.dir_path+"\profile\wpp")
+        self.options.add_argument(r"user-data-dir="+self.dir_path+"/profile/wpp")
         self.driver = webdriver.Chrome(self.chrome, chrome_options=self.options)
         self.ultima_resposta = ''
 
