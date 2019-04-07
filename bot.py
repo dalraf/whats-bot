@@ -67,13 +67,13 @@ class wppbot:
 
 
     def responde(self,texto):
-        print("Pergunta" + " " + texto)
-        print("Ultimo texto" + self.ultima_resposta)
+        print("Pergunta:" + " " + texto)
+        print("Ultimo texto:" + " " + self.ultima_resposta)
         if self.ultima_resposta != "":
             novo = []
             novo.append(self.ultima_resposta)
             novo.append(texto)
-            print(novo)
+            print("Treinamento:" + " " + novo)
             self.bot.train(novo)
         response = self.bot.get_response(texto)
         print("Resposta:" + " " + str(response) + " " + str(response.confidence))            
