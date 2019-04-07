@@ -73,7 +73,7 @@ class wppbot:
             novo = []
             novo.append(self.ultima_resposta)
             novo.append(texto)
-            print("Treinamento:" + " " + novo)
+            print("Treinamento:" + " " + str(novo)
             self.bot.train(novo)
         response = self.bot.get_response(texto)
         print("Resposta:" + " " + str(response) + " " + str(response.confidence))            
