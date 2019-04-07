@@ -75,13 +75,16 @@ class wppbot:
 
 
     def responde(self,texto):
+        print(texto)
         response = self.bot.get_response(texto)
+        print(response)
         if self.ultima_resposta != "":
             novo = []
             novo.append(self.ultima_resposta)
             novo.append(texto)
+            print(novo)
             self.bot.train(novo)       
-        self.ultima_resposta = response
+        self.ultima_resposta = str(response)
         response = str(response)
         response = 'bot: ' + response
         self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')

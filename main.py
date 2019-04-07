@@ -2,7 +2,7 @@ import re
 from bot import wppbot
 
 bot = wppbot('robozin')
-#bot.treina('treino')
+bot.treina('treino')
 #bot.inicia('Capitalismo Opressor News')
 bot.inicia('Fábio Assunção THE BOSS')
 bot.saudacao(['bot: Oi, sou um bot','bot: Bora conversar ?'])
