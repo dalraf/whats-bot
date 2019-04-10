@@ -57,8 +57,11 @@ class wppbot:
             return False
 
     def escuta(self):
+        time.sleep(1)
+        self.learn = True
         unread = self.driver.find_elements_by_class_name("OUeyt")
         if len(unread) > 0:
+            self.learn = False
             ele = unread[-1]
             self.action = webdriver.common.action_chains.ActionChains(self.driver)
             self.action.move_to_element_with_offset(ele, 0, -20)
@@ -66,9 +69,10 @@ class wppbot:
                 self.action.click()
                 self.action.perform()
                 self.action.click()
+                self.action.perform()
             except:
                 pass
-
+                
         post = self.driver.find_elements_by_class_name('_3_7SH')
         ultimo = len(post) - 1
         try:
@@ -82,7 +86,7 @@ class wppbot:
     def responde(self,texto,botname):
         print("Pergunta:" + " " + texto)
         print("Ultimo texto:" + " " + self.ultima_resposta)
-        if self.ultima_resposta != "":
+        if self.ultima_resposta != "" and self.learn:
             novo = []
             novo.append(self.ultima_resposta)
             novo.append(texto)
