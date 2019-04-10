@@ -8,6 +8,7 @@ from chatterbot import ChatBot
 from selenium import webdriver
 
 
+
 class wppbot:
     dir_path = os.getcwd()
 
@@ -18,10 +19,10 @@ class wppbot:
         self.bot.set_trainer(ListTrainer)
 
         self.chrome = self.dir_path+'/chromedriver'
-
+        
         self.options = webdriver.ChromeOptions()
         self.options.add_argument(r"user-data-dir="+self.dir_path+"/profile/wpp")
-#        self.options.add_argument("--headless") 
+#       self.options.add_argument("--headless") 
         self.driver = webdriver.Chrome(self.chrome, chrome_options=self.options)
         self.ultima_resposta = ''
 
@@ -33,12 +34,12 @@ class wppbot:
         self.caixa_de_pesquisa = self.driver.find_element_by_class_name('jN-F5')
 
 
-        self.caixa_de_pesquisa.send_keys(nome_contato)
-        time.sleep(2)
-        print(nome_contato)
-        self.contato = self.driver.find_element_by_xpath('//span[@title = "{}"]'.format(nome_contato))
-        self.contato.click()
-        time.sleep(2)
+        #self.caixa_de_pesquisa.send_keys(nome_contato)
+        #time.sleep(2)
+        #print(nome_contato)
+        #self.contato = self.driver.find_element_by_xpath('//span[@title = "{}"]'.format(nome_contato))
+        #self.contato.click()
+        #time.sleep(2)
 
 
 
@@ -56,11 +57,24 @@ class wppbot:
             return False
 
     def escuta(self):
+        unread = self.driver.find_elements_by_class_name("OUeyt")
+        if len(unread) > 0:
+            ele = unread[-1]
+            self.action = webdriver.common.action_chains.ActionChains(self.driver)
+            self.action.move_to_element_with_offset(ele, 0, -20)
+            try:
+                self.action.click()
+                self.action.perform()
+                self.action.click()
+            except:
+                pass
+
         post = self.driver.find_elements_by_class_name('_3_7SH')
         ultimo = len(post) - 1
         try:
             texto = post[ultimo].find_element_by_css_selector('span.selectable-text').text
-        except:
+        except Exception as error:
+            print(error)
             texto = "erro"
         return texto
 
@@ -80,6 +94,7 @@ class wppbot:
             self.ultima_resposta = str(response)
             response = str(response)
             response = botname + response
+#            response = "oi"
             self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')
             self.caixa_de_mensagem.send_keys(response)
             time.sleep(1)

@@ -1,5 +1,6 @@
 import re
 from bot import wppbot
+from time import sleep
 
 bot = wppbot('robozin')
 #bot.treina('treino')
@@ -23,3 +24,4 @@ while True:
 
         if texto != "erro":
             bot.responde(texto,botname)
+    sleep(2)
