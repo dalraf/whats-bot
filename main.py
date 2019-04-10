@@ -3,7 +3,7 @@ from bot import wppbot
 
 bot = wppbot('robozin')
 #bot.treina('treino')
-#bot.inicia('Capitalismo Opressor News')
+#bot.inicia('GRUPO SÉRIO 106')
 bot.inicia('Fábio Assunção THE BOSS')
 #bot.saudacao(['bot: Oi, sou um bot','bot: Bora conversar ?'])
 ultimo_texto = ''
@@ -21,7 +21,5 @@ while True:
         texto = texto.replace('', '')
         texto = texto.lower()
 
-        if texto == "erro":
-            break
-        else:
+        if texto != "erro":
             bot.responde(texto,botname)

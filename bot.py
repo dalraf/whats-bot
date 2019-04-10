@@ -21,6 +21,7 @@ class wppbot:
 
         self.options = webdriver.ChromeOptions()
         self.options.add_argument(r"user-data-dir="+self.dir_path+"/profile/wpp")
+#        self.options.add_argument("--headless") 
         self.driver = webdriver.Chrome(self.chrome, chrome_options=self.options)
         self.ultima_resposta = ''
 
@@ -75,7 +76,7 @@ class wppbot:
             self.bot.train(novo)
         response = self.bot.get_response(texto)
         print("Resposta:" + " " + str(response) + " " + str(response.confidence))            
-        if response.confidence > 0.50:
+        if response.confidence > 0:
             self.ultima_resposta = str(response)
             response = str(response)
             response = botname + response
