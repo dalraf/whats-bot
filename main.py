@@ -24,4 +24,3 @@ while True:
 
         if texto != "erro":
             bot.responde(texto,botname)
-    sleep(2)
