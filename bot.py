@@ -22,6 +22,7 @@ class wppbot:
         self.chrome = self.dir_path+'/chromedriver'
         
         self.options = webdriver.ChromeOptions()
+        #self.options.headless = True
         self.options.add_argument(r"user-data-dir="+self.dir_path+"/profile/wpp")
         #self.options.add_argument("--headless") 
         self.driver = webdriver.Chrome(self.chrome, chrome_options=self.options)
@@ -32,9 +33,12 @@ class wppbot:
         self.driver.get('https://web.whatsapp.com/')
         self.driver.implicitly_wait(15)
         
-        self.contato = self.driver.find_element_by_class_name('_2wP_Y')
-        self.contato.click()
-        time.sleep(2)
+        try:
+            self.contato = self.driver.find_element_by_class_name('_2wP_Y')
+            self.contato.click()
+            time.sleep(2)
+        except:
+            pass
 
 
 
@@ -66,9 +70,11 @@ class wppbot:
             except:
                 pass
         
-
-        nome = self.driver.find_elements_by_class_name('_1wjpf')[-1].text
-        print("usuário é:" + nome)
+        try:
+            nome = self.driver.find_elements_by_class_name('_1wjpf')[-1].text
+            print("usuário é:" + nome)
+        except:
+            pass
         post = self.driver.find_elements_by_class_name('_3_7SH')
         ultimo = len(post) - 1
 
