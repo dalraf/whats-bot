@@ -15,6 +15,7 @@ class wppbot:
     def __init__(self, nome_bot):
         print(self.dir_path)
         self.bot = ChatBot(nome_bot)
+        self.botname = nome_bot
 
         self.bot.set_trainer(ListTrainer)
 
@@ -22,7 +23,7 @@ class wppbot:
         
         self.options = webdriver.ChromeOptions()
         self.options.add_argument(r"user-data-dir="+self.dir_path+"/profile/wpp")
-#       self.options.add_argument("--headless") 
+        #self.options.add_argument("--headless") 
         self.driver = webdriver.Chrome(self.chrome, chrome_options=self.options)
         self.ultima_resposta = ''
 
@@ -30,16 +31,10 @@ class wppbot:
 
         self.driver.get('https://web.whatsapp.com/')
         self.driver.implicitly_wait(15)
-
-        self.caixa_de_pesquisa = self.driver.find_element_by_class_name('jN-F5')
-
-
-        #self.caixa_de_pesquisa.send_keys(nome_contato)
-        #time.sleep(2)
-        #print(nome_contato)
-        #self.contato = self.driver.find_element_by_xpath('//span[@title = "{}"]'.format(nome_contato))
-        #self.contato.click()
-        #time.sleep(2)
+        
+        self.contato = self.driver.find_element_by_class_name('_2wP_Y')
+        self.contato.click()
+        time.sleep(2)
 
 
 
@@ -58,10 +53,8 @@ class wppbot:
 
     def escuta(self):
         time.sleep(1)
-        self.learn = True
         unread = self.driver.find_elements_by_class_name("OUeyt")
         if len(unread) > 0:
-            self.learn = False
             ele = unread[-1]
             self.action = webdriver.common.action_chains.ActionChains(self.driver)
             self.action.move_to_element_with_offset(ele, 0, -20)
@@ -72,9 +65,19 @@ class wppbot:
                 self.action.perform()
             except:
                 pass
-                
+        
+
+        nome = self.driver.find_elements_by_class_name('_1wjpf')[-1].text
+        print("usuário é:" + nome)
         post = self.driver.find_elements_by_class_name('_3_7SH')
         ultimo = len(post) - 1
+
+        try:
+            self.ultima_resposta = post[ultimo - 1].find_element_by_css_selector('span.selectable-text').text.replace(self.botname ,'')
+        except Exception as error:
+            print(error)
+            self.ultima_resposta = ""
+
         try:
             texto = post[ultimo].find_element_by_css_selector('span.selectable-text').text
         except Exception as error:
@@ -83,10 +86,10 @@ class wppbot:
         return texto
 
 
-    def responde(self,texto,botname):
+    def responde(self,texto):
         print("Pergunta:" + " " + texto)
         print("Ultimo texto:" + " " + self.ultima_resposta)
-        if self.ultima_resposta != "" and self.learn:
+        if self.ultima_resposta != "":
             novo = []
             novo.append(self.ultima_resposta)
             novo.append(texto)
@@ -95,9 +98,8 @@ class wppbot:
         response = self.bot.get_response(texto)
         print("Resposta:" + " " + str(response) + " " + str(response.confidence))            
         if response.confidence > 0:
-            self.ultima_resposta = str(response)
             response = str(response)
-            response = botname + response
+            response = self.botname + response
 #            response = "oi"
             self.caixa_de_mensagem = self.driver.find_element_by_class_name('_2S1VP')
             self.caixa_de_mensagem.send_keys(response)

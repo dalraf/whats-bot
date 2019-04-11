@@ -1,14 +1,14 @@
 import re
 from bot import wppbot
 from time import sleep
-
-bot = wppbot('robozin')
+botname = 'Fábio Assunção:'
+bot = wppbot(botname)
 #bot.treina('treino')
 #bot.inicia('GRUPO SÉRIO 106')
 bot.inicia('Fábio Assunção THE BOSS')
 #bot.saudacao(['bot: Oi, sou um bot','bot: Bora conversar ?'])
 ultimo_texto = ''
-botname = 'Fábio Assunção:'
+
 
 
 
@@ -23,4 +23,4 @@ while True:
         texto = texto.lower()
 
         if texto != "erro":
-            bot.responde(texto,botname)
+            bot.responde(texto)
